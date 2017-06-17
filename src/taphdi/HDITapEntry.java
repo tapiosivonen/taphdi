@@ -29,7 +29,7 @@ public class HDITapEntry
      **/
     public int getYear()
     {
-	return year;
+        return year;
     }
 
     /**
@@ -39,7 +39,7 @@ public class HDITapEntry
      **/
     public double getHdi()
     {
-	return hdi;
+        return hdi;
     }
 
     /**
@@ -49,7 +49,7 @@ public class HDITapEntry
      **/
     public double getTapPrevalence()
     {
-	return tapPrevalence;
+        return tapPrevalence;
     }
 
     /**
@@ -60,8 +60,8 @@ public class HDITapEntry
      **/
     public synchronized HDITapEntry setYear(int year)
     {
-	this.year = year;
-	return this;
+        this.year = year;
+        return this;
     }
 
     /**
@@ -72,8 +72,8 @@ public class HDITapEntry
      **/
     public synchronized HDITapEntry setHdi(double hdi)
     {
-	this.hdi = hdi;
-	return this;
+        this.hdi = hdi;
+        return this;
     }
 
     /**
@@ -84,8 +84,8 @@ public class HDITapEntry
      **/
     public synchronized HDITapEntry setTapPrevalence(double tapPrevalence)
     {
-	this.tapPrevalence = tapPrevalence;
-	return this;
+        this.tapPrevalence = tapPrevalence;
+        return this;
     }
 
     /**
@@ -95,7 +95,7 @@ public class HDITapEntry
      **/
     public synchronized String toString()
     {
-	return ""+getYear()+";"+getHdi()+";"+getTapPrevalence();
+        return ""+getYear()+";"+getHdi()+";"+getTapPrevalence();
     }
 
     /**
@@ -107,12 +107,12 @@ public class HDITapEntry
      **/
     public static HDITapEntry readClean(String source)
     {
-	try {
-	    return read(source);
-	}
-	catch(IllegalArgumentException iae) {
-	    return null;
-	}
+        try {
+            return read(source);
+        }
+        catch(IllegalArgumentException iae) {
+            return null;
+        }
     }
     
     /**
@@ -124,15 +124,15 @@ public class HDITapEntry
      * @throws IllegalArgumentException if the source is not formatted as expected
      **/
     public static HDITapEntry read(String source)
-	throws IllegalArgumentException
+        throws IllegalArgumentException
     {
-	String[] part = source.split(";");
-	if(part.length != 3)
-	    throw new IllegalArgumentException("Invalid HDITapEntry source: "+source);
-	HDITapEntry result = new HDITapEntry();
-	result.setYear(Integer.parseInt(part[0]));
-	result.setHdi(Integer.parseInt(part[1]));
-	result.setTapPrevalence(Double.parseDouble(part[2]));
-	return result;
+        String[] part = source.split(";");
+        if(part.length != 3)
+            throw new IllegalArgumentException("Invalid HDITapEntry source: "+source);
+        HDITapEntry result = new HDITapEntry();
+        result.setYear(Integer.parseInt(part[0]));
+        result.setHdi(Integer.parseInt(part[1]));
+        result.setTapPrevalence(Double.parseDouble(part[2]));
+        return result;
     }
 }
