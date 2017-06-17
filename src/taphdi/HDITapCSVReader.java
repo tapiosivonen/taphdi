@@ -8,6 +8,7 @@ package taphdi;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
 
 public class HDITapCSVReader
 {
@@ -21,7 +22,7 @@ public class HDITapCSVReader
      * @throws IOException in case there occurs IOException while reading
      **/
     static Collection<HDITapEntry> readHDITapEntries(InputStream in)
-        throws IOException
+        throws UncheckedIOException
     {
         try (InputStreamReader isr
              = new InputStreamReader(in);
@@ -36,8 +37,8 @@ public class HDITapCSVReader
                 .filter(e -> e != null)
                 .collect(Collectors.toList());
         }
-        catch(UncheckedIOException uioe) {
-            throw uioe.getCause();
-        }
+	catch(IOException ioe) {
+	    throw new UncheckedIOException(ioe);
+	}
     }
 }

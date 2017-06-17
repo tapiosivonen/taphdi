@@ -4,10 +4,11 @@
  * Class for fitting Generalized Logistic models to HDI - Tap water prevalence data.
  **/
 
-package hditap;
+package taphdi;
 
 import java.util.*;
 import org.apache.commons.math3.fitting.*;
+import org.apache.commons.math3.analysis.function.*;
 
 public class HDITapLogisticFitter
 {
@@ -45,7 +46,7 @@ public class HDITapLogisticFitter
     {
         return myFitter
             .fit(HDITapObservationMapper
-                 .mapWeightedObservationPointsOutOfHDITapEntriesAndFilterByYear(hdiTapEntryList,
+                 .mapWeightedObservedPointsOutOfHDITapEntriesAndFilterByYear(hdiTapEntryList,
                                                                                 year)
                  );
     }
@@ -63,8 +64,8 @@ public class HDITapLogisticFitter
     {
         HDITapLogisticFitter fitter
             = new HDITapLogisticFitter(HDITapCSVReader.readHDITapEntries(System.in));
-        System.out.println("1990: "+Arrays.deepToString(fitter.fitLogisticModelByYear(1990)));
-        System.out.println("2015: "+Arrays.deepToString(fitter.fitLogisticModelByYear(2015)));
+        System.out.println("1990: "+Arrays.toString(fitter.fitLogisticModelByYear(1990)));
+        System.out.println("2015: "+Arrays.toString(fitter.fitLogisticModelByYear(2015)));
         return;
     }
 }

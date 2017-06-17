@@ -6,8 +6,9 @@
 
 package taphdi;
 
+import java.util.*;
 import java.util.stream.*;
-import org.apache.commons.math3.fitting.WeightedObservationPoint;
+import org.apache.commons.math3.fitting.WeightedObservedPoint;
 
 public class HDITapObservationMapper
 {
@@ -18,13 +19,13 @@ public class HDITapObservationMapper
      * @return WeightedObservationPoint Collection of the target HDITapEntries so that weight is always 1.0,
      * x is HDI and y is tap water prevalence
      **/
-    private static Collection<WeightedObservationPoint>
-        collectWeightedObservationPoints(Stream<HDITapEntry> hdiTapStream)
+    private static Collection<WeightedObservedPoint>
+        collectWeightedObservedPoints(Stream<HDITapEntry> hdiTapStream)
     {
         return
             hdiTapStream
             .map(inHDITapEntry ->
-                 new WeightedObservationPoint(1.0d, inHDITapEntry.getHdi(), inHDITapEntry.getTapPrevalence())
+                 new WeightedObservedPoint(1.0d, inHDITapEntry.getHdi(), inHDITapEntry.getTapPrevalence())
                  )
             .collect(Collectors.toList());
     }
@@ -38,17 +39,17 @@ public class HDITapObservationMapper
      * @return WeightedObservationPoint Collection of the target HDITapEntries so that weight is always 1.0,
      * x is HDI and y is tap water prevalence
      **/
-    public static Collection<WeightedObservationPoint>
-        mapWeightedObservationPointsOutOfHDITapEntryesAndFilterByYear(Collection<HDITapEntry> hdiTapEntries, int year)
+    public static Collection<WeightedObservedPoint>
+        mapWeightedObservedPointsOutOfHDITapEntriesAndFilterByYear(Collection<HDITapEntry> hdiTapEntries, int year)
     {
         return
-            collectWeightedObservationPoints(       
-                                             hdiTapEntries
-                                             .stream()
-                                             .parallel()
-                                             .filter(currentHdiTapEntry ->
-                                                     currentHdiTapEntry.getYear() == year
-                                                     )
-                                                    );
+            collectWeightedObservedPoints(       
+                                          hdiTapEntries
+                                          .stream()
+                                          .parallel()
+                                          .filter(currentHdiTapEntry ->
+                                                  currentHdiTapEntry.getYear() == year
+                                                  )
+                                                 );
     }
 }
