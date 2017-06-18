@@ -9,12 +9,14 @@ The resulting models show that in year 2015 the HDI level associated with wider 
 ![alt text](https://raw.githubusercontent.com/tapiosivonen/taphdi/master/doc/images/logisticestimation.png "Logistic model")
 The results suggest that while HDI levels of countries of the world have improved clearly from 1990 to 2015, the availability of piped tap water has not increased in the pace as one could have expected if tap water was clearly linked to the HDI level of the countries.
 
-## Work outline
-The work was done in multiple steps utilizing UNDP data sources, LibreOffice, Java 8 and Apache Commons Math.
+## Data sources
 
 On previous work, the author had gathered UNDP data on HDI in different countries including the year 1990. This data was copied from previous spreadsheet into new spreadsheet. UNDP HDI data for year 2015 was gathered from UNDP web database in http://hdr.undp.org/en/composite/HDI . The data was imported to the LibreOffice Calc worksheet prepared for this purpose. Data sources were combined into one Calc worksheet.
 
 Data was filtered out to extract country and HDI observations when HDI was present and year was either 1990 or 2015. Tap water prevalence data was imported to worksheet from WHO from https://data.unicef.org/topic/water-and-sanitation/drinking-water/ . Tap water prevalence data was combined to HDI data by using country name and year as a key.
+
+## Work outline
+The work was done in multiple steps utilizing UNDP data sources, LibreOffice, Java 8 and Apache Commons Math.
 
 Data and proposed model was quickly sanity checked by transforming the tap water prevalence data into logit form and then plotting the logit over HDIs (Illustration 2). As it seems visually meaningful to make linear regression over the logit results, the premise was deemed potentially viable and process was continued.
 
