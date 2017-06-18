@@ -131,7 +131,7 @@ public class HDITapEntry
             throw new IllegalArgumentException("Invalid HDITapEntry source: "+source);
         HDITapEntry result = new HDITapEntry();
         result.setYear(Integer.parseInt(part[0]));
-        result.setHdi(Integer.parseInt(part[1]));
+        result.setHdi(Double.parseDouble(part[1]));
         result.setTapPrevalence(Double.parseDouble(part[2]));
         return result;
     }

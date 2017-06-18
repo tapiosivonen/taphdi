@@ -9,42 +9,57 @@ package taphdi;
 import java.util.*;
 import org.apache.commons.math3.fitting.*;
 import org.apache.commons.math3.analysis.function.*;
+import org.apache.commons.math3.analysis.*;
 
-public class HDITapLogisticFitter
+public class HDITapFitter
 {
-    /** start point for logistic model fitting, k=1, m=0, b=1, q=1, a=0, n=1 **/
-    private static final double[] STARTPOINT = {1.0d, 0.0d, 1.0d, 1.0d, 0.0d, 1.0d};
+    /** start point for model fitting, m=0.5, b=1/0.05 **/
+    private static final double[] STARTPOINT
+        = {0.5d, 1.0d/0.05d};
+    /** base parameters for logistic model fitting, k=1, m=0.0, b=1, q=1, a=0, n=1 **/
+    private static final double[] BASEPARAMETERS
+        = {1.0d, 0.0d, 1.0d, 1.0d, 0.0d, 1.0d};
+    /** parameter indexes **/
+    private static final int[] PARAMETERINDEX
+        = {1,2};
+    /** target logistic function **/
+    private final ParametricUnivariateFunction targetFunction
+        = new Logistic.Parametric();
     /** maximum iterations allowed **/
     private static final int MAXITER = 10000;
     /** Curve fitter to use **/
     private SimpleCurveFitter myFitter
         = SimpleCurveFitter
-        .create(new Logistic.Parametric(),
+        .create(new HDITapModelFunction(targetFunction,
+                                        BASEPARAMETERS,
+                                        PARAMETERINDEX),
                 STARTPOINT)
         .withMaxIterations(MAXITER);
     /** List to store HDITapEntries in **/
     private List<HDITapEntry> hdiTapEntryList;
 
     /**
-     * Constructor to create a HDITapLogisticFitter with given hdiTapEntries.
+     * Constructor to create a HDITapFitter with given hdiTapEntries.
      *
      * @param hdiTapEntries observation data on HDI - Tap water prevalence
-     * @return created HDITapLogisticFitter
+     * @return created HDITapFitter
      **/
-    public HDITapLogisticFitter(Collection<HDITapEntry> hdiTapEntries)
+    public HDITapFitter(Collection<HDITapEntry> hdiTapEntries)
     {
         hdiTapEntryList = new ArrayList(hdiTapEntries);
+        System.err.println(hdiTapEntryList.size());
     }
 
     /**
-     * Fits a generalized logistic model to the observation data of given year.
+     * Fits a model to the observation data of given year.
      *
      * @param year target year to model.
      * @return parameters of the fitted model
      **/
-    public synchronized double[] fitLogisticModelByYear(int year)
+    public synchronized double[] fitModelByYear(int year)
     {
         return myFitter
+            .withStartPoint(STARTPOINT)
             .fit(HDITapObservationMapper
                  .mapWeightedObservedPointsOutOfHDITapEntriesAndFilterByYear(hdiTapEntryList,
                                                                                 year)
@@ -62,10 +77,10 @@ public class HDITapLogisticFitter
      **/
     public static void main(String[] args)
     {
-        HDITapLogisticFitter fitter
-            = new HDITapLogisticFitter(HDITapCSVReader.readHDITapEntries(System.in));
-        System.out.println("1990: "+Arrays.toString(fitter.fitLogisticModelByYear(1990)));
-        System.out.println("2015: "+Arrays.toString(fitter.fitLogisticModelByYear(2015)));
+        HDITapFitter fitter
+            = new HDITapFitter(HDITapCSVReader.readHDITapEntries(System.in));
+        System.out.println("1990: "+Arrays.toString(fitter.fitModelByYear(1990)));
+        System.out.println("2015: "+Arrays.toString(fitter.fitModelByYear(2015)));
         return;
     }
 }

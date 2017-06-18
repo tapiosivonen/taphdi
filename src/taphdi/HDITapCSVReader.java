@@ -37,8 +37,8 @@ public class HDITapCSVReader
                 .filter(e -> e != null)
                 .collect(Collectors.toList());
         }
-	catch(IOException ioe) {
-	    throw new UncheckedIOException(ioe);
-	}
+        catch(IOException ioe) {
+            throw new UncheckedIOException(ioe);
+        }
     }
 }
