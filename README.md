@@ -7,7 +7,7 @@ Intent in this work was to model tap water prevalence in different countries com
 
 The resulting models show that in year 2015 the HDI level associated with wider tap water prevalence is higher than in year 1990, which is somewhat surprising.
 ![alt text](https://raw.githubusercontent.com/tapiosivonen/taphdi/master/doc/images/logisticestimation.png "Logistic model")
-The results suggest that while HDI levels of countries of the world have improved clearly from 1990 to 2015, the availability of piped tap water has not increased in the pace as one could have expected if tap water was clearly linked to the HDI level of the countries.
+The results suggest that while HDI levels of countries of the world have improved clearly from 1990 to 2015, the availability of piped tap water has not increased in the pace as one could have expected if tap water availability was clearly linked to the HDI level of the countries.
 
 ## Data sources
 
